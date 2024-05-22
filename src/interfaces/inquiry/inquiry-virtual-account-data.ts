@@ -15,8 +15,9 @@ import { Amount } from "../amount";
 import { Description } from "../description";
 import { InquiryBillDetail } from "./inquiry-bill-detail";
 import { VirtualAccountTrxType } from "../../enumerations/virtual-account-trx-type.enum";
+import { VirtualAccountData } from "../virtual-account-data";
 
-export class InquiryVirtualAccountData {
+export class InquiryVirtualAccountData extends VirtualAccountData {
   @IsNumberString()
   @Length(2)
   inquiryStatus: string;
@@ -25,38 +26,9 @@ export class InquiryVirtualAccountData {
   inquiryReason: InquiryReason;
 
   @IsNotEmpty()
-  @IsNumberString()
-  @IsNotEmpty()
-  @Length(8)
-  partnerServiceId: string;
-
-  @IsString()
-  @MaxLength(20)
-  @IsNotEmpty()
-  customerNo: string;
-
-  @IsNumberString()
-  @IsNotEmpty()
-  @Length(28)
-  virtualAccountNo: string;
-
-  @IsString()
-  @IsNotEmpty()
-  virtualAccountName: string;
-
-  @IsEmail()
-  virtualAccountEmail: string;
-
-  @IsPhoneNumber()
-  virtualAccountPhone: string;
-
-  @IsNotEmpty()
   @IsString()
   @MaxLength(128)
   inquiryRequestId: string;
-
-  @IsObject()
-  totalAmount: Amount;
 
   @MaxLength(5)
   @IsString()
@@ -64,9 +36,6 @@ export class InquiryVirtualAccountData {
 
   @IsArray()
   billDetails: InquiryBillDetail[];
-
-  @IsArray()
-  freeTexts: Description[];
 
   @IsEnum(["c", "o", "i", "m", "l", "n", "x", "v", "w"])
   @Length(1)

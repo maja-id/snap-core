@@ -20,36 +20,11 @@ import { PaymentType } from "../../enumerations/payment-type.enum";
 import { FlagAdvise } from "../../enumerations/flag-advise.enum";
 import { PaymentFlagStatus } from "../../enumerations/payment-flag-status.enum";
 import { PaymentResponseBillDetail } from "./payment-response-bill-detail";
+import { VirtualAccountData } from "../virtual-account-data";
 
-export class paymentVirtualAccountData {
+export class paymentVirtualAccountData extends VirtualAccountData {
   @IsObject()
   paymentFlagReason: PaymentFlagReason;
-
-  @IsNotEmpty()
-  @IsNumberString()
-  @IsNotEmpty()
-  @Length(8)
-  partnerServiceId: string;
-
-  @IsString()
-  @MaxLength(20)
-  @IsNotEmpty()
-  customerNo: string;
-
-  @IsNumberString()
-  @IsNotEmpty()
-  @Length(28)
-  virtualAccountNo: string;
-
-  @IsString()
-  @IsNotEmpty()
-  virtualAccountName: string;
-
-  @IsEmail()
-  virtualAccountEmail: string;
-
-  @IsPhoneNumber()
-  virtualAccountPhone: string;
 
   @IsString()
   @MaxLength(32)
@@ -66,9 +41,6 @@ export class paymentVirtualAccountData {
   @IsHexadecimal()
   @MaxLength(6)
   paidBills: string;
-
-  @IsObject()
-  totalAmount: Amount;
 
   @IsISO8601()
   trxDatetime: string;
@@ -95,7 +67,4 @@ export class paymentVirtualAccountData {
 
   @IsArray()
   billDetails: PaymentResponseBillDetail[];
-
-  @IsArray()
-  freeTexts: Description[];
 }

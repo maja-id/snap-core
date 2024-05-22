@@ -17,25 +17,11 @@ import { FlagAdvise } from "../../enumerations/flag-advise.enum";
 import { PaymentFlagStatus } from "../../enumerations/payment-flag-status.enum";
 import { InquiryStatusBillDetail } from "./inquiry-status-bill-detail";
 import { Description } from "../description";
+import { VirtualAccountData } from "../virtual-account-data";
 
-export class InquiryStatusVirtualAccountData {
+export class InquiryStatusVirtualAccountData extends VirtualAccountData {
   @IsObject()
   paymentFlagReason: PaymentFlagReason;
-
-  @IsString()
-  @Length(8)
-  @IsNotEmpty()
-  partnerServiceId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(20)
-  customerNo: string;
-
-  @IsNumberString()
-  @IsNotEmpty()
-  @Length(28)
-  virtualAccountNo: string;
 
   @IsString()
   @IsNotEmpty()
@@ -52,9 +38,6 @@ export class InquiryStatusVirtualAccountData {
   @IsHexadecimal()
   @MaxLength(6)
   paidBills: string;
-
-  @IsObject()
-  totalAmount: Amount;
 
   @IsISO8601()
   trxDateTime: string;
@@ -78,7 +61,4 @@ export class InquiryStatusVirtualAccountData {
 
   @IsArray()
   billDetails: InquiryStatusBillDetail[];
-
-  @IsArray()
-  freeTexts: Description[];
 }
