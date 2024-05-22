@@ -1,6 +1,6 @@
 {
   "name": "@maja.id/snap-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BI SNAP API SDK",
   "main": "index.js",
   "scripts": {
