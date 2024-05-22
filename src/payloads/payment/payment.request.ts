@@ -89,11 +89,11 @@ export class PaymentRequest {
   @MaxLength(6)
   journalNum: string;
 
-  @IsEnum(["1", "2"])
+  @IsEnum(PaymentType)
   @Length(1)
   paymentType: PaymentType;
 
-  @IsEnum(["Y", "N"])
+  @IsEnum(FlagAdvise)
   @Length(1)
   flagAdvise: FlagAdvise;
 

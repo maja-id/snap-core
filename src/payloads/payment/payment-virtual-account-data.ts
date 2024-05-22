@@ -54,10 +54,10 @@ export class paymentVirtualAccountData extends VirtualAccountData {
   journalNum: string;
 
   @Length(1)
-  @IsEnum(["1", "2"])
+  @IsEnum(PaymentType)
   paymentType: PaymentType;
 
-  @IsEnum(["Y", "N"])
+  @IsEnum(FlagAdvise)
   @Length(1)
   flagAdvise: FlagAdvise;
 
