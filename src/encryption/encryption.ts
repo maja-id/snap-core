@@ -1,5 +1,5 @@
 import { createHash, createHmac, sign } from "crypto";
-import { SignatureOptions } from "../interfaces/signature.options";
+import { SignatureOptions } from "../payloads/signature.options";
 import { validateOrReject } from "class-validator";
 
 /**
