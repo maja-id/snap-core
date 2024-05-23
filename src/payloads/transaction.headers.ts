@@ -1,4 +1,4 @@
-import { IsEnum, IsISO8601, IsString } from "class-validator";
+import { IsEnum, IsISO8601, IsNotEmpty, IsString } from "class-validator";
 
 export class TransactionHeaders {
   @IsString()
@@ -6,15 +6,19 @@ export class TransactionHeaders {
   "Content-Type": string;
 
   @IsString()
+  @IsNotEmpty()
   Authorization: string;
 
   @IsISO8601()
+  @IsNotEmpty()
   "X-TIMESTAMP": string;
 
   @IsString()
+  @IsNotEmpty()
   "X-SIGNATURE"?: string;
 
   @IsString()
+  @IsNotEmpty()
   "X-PARTNER-ID": string;
 
   @IsString()
