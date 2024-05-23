@@ -14,3 +14,4 @@ export * from "./inquiry-va";
 export * from "./payment";
 export * from "./update-status-va";
 export * from "./update-va";
+export * from "./token";
