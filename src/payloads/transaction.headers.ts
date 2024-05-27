@@ -3,42 +3,42 @@ import { IsEnum, IsISO8601, IsNotEmpty, IsString } from "class-validator";
 export class TransactionHeaders {
   @IsString()
   @IsEnum(["application/json", "application/x-www-form-urlencoded"])
-  "Content-Type": string;
+  "content-type": string;
 
   @IsString()
   @IsNotEmpty()
-  Authorization: string;
+  authorization: string;
 
   @IsISO8601()
   @IsNotEmpty()
-  "X-TIMESTAMP": string;
+  "x-timestamp": string;
 
   @IsString()
   @IsNotEmpty()
-  "X-SIGNATURE"?: string;
+  "x-signature"?: string;
 
   @IsString()
   @IsNotEmpty()
-  "X-PARTNER-ID": string;
+  "x-partner-id": string;
 
   @IsString()
-  "X-EXTERNAL-ID": string;
+  "x-external-id": string;
 
   @IsString()
-  "X-IP-ADDRESS": string;
+  "x-ip-address": string;
 
   @IsString()
-  "X-DEVICE-ID": string;
+  "x-device-id": string;
 
   @IsString()
-  "CHANNEL-ID": string;
+  "channel-id": string;
 
   @IsString()
-  "X-LATITUDE": string;
+  "x-latitude": string;
 
   @IsString()
-  "X-LONGITUDE": string;
+  "x-longitude": string;
 
   @IsString()
-  ORIGIN: string;
+  origin: string;
 }

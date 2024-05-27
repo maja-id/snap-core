@@ -1,6 +1,7 @@
 import { createHash, createHmac, sign } from "crypto";
 import { SignatureOptions } from "../payloads/signature.options";
 import { validateOrReject } from "class-validator";
+import { TokenHeaders } from "../payloads";
 
 /**
  * SnapEncryption helper class
@@ -24,6 +25,18 @@ export class SnapEncryption {
     this.clientSecret = options.clientSecret;
     this.privateKey = options.privateKey || "";
     this.publicKey = options.publicKey || "";
+  }
+
+  /**
+   * Generate Token Signature
+   */
+  async generateTokenSignature(headers: TokenHeaders) {
+    const stringToSign = headers["x-client-key"] + "|" + headers["x-timestamp"];
+    return sign(
+      "sha256",
+      Buffer.from(stringToSign),
+      this.clientSecret,
+    ).toString("hex");
   }
 
   /**

@@ -3,13 +3,13 @@ import { IsEnum, IsISO8601, IsString } from "class-validator";
 export class TokenHeaders {
   @IsString()
   @IsEnum(["application/json", "application/x-www-form-urlencoded"])
-  "Content-Type": string;
+  "content-type": string;
   @IsString()
-  Authorization: string;
+  authorization: string;
   @IsISO8601()
-  "X-TIMESTAMP": string;
+  "x-timestamp": string;
   @IsString()
-  "X-SIGNATURE"?: string;
+  "x-signature"?: string;
   @IsString()
-  "X-CLIENT-KEY"?: string;
+  "x-client-key"?: string;
 }
