@@ -2,7 +2,6 @@
   "name": "@maja.id/snap-core",
   "version": "1.0.5",
   "description": "BI SNAP API SDK",
-  "main": "index.js",
   "scripts": {
     "postinstall": "npm run build",
     "build": "tsc -p tsconfig.json",
