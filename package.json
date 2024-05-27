@@ -1,6 +1,6 @@
 {
   "name": "@maja.id/snap-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "BI SNAP API SDK",
   "scripts": {
     "postinstall": "npm run build",
