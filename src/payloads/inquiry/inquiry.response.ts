@@ -21,4 +21,7 @@ export class InquiryResponse {
 
   @IsObject()
   virtualAccountData: InquiryVirtualAccountData;
+
+  @IsObject()
+  additionalInfo: Record<string, any>;
 }
