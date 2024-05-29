@@ -40,4 +40,7 @@ export class InquiryVirtualAccountData extends VirtualAccountData {
 
   @IsObject()
   feeAmount: Amount;
+
+  @IsObject()
+  additionalInfo: Record<string, any>;
 }
