@@ -7,6 +7,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   Length,
@@ -24,10 +25,12 @@ import { VirtualAccountData } from "../virtual-account-data";
 
 export class paymentVirtualAccountData extends VirtualAccountData {
   @IsObject()
+  @IsOptional()
   paymentFlagReason: PaymentFlagReason;
 
   @IsString()
   @MaxLength(32)
+  @IsOptional()
   trxId: string;
 
   @IsNotEmpty()
@@ -36,35 +39,44 @@ export class paymentVirtualAccountData extends VirtualAccountData {
   paymentRequestId: string;
 
   @IsObject()
+  @IsOptional()
   paidAmount: Amount;
 
   @IsHexadecimal()
   @MaxLength(6)
+  @IsOptional()
   paidBills: string;
 
   @IsISO8601()
+  @IsOptional()
   trxDatetime: string;
 
   @IsString()
   @MaxLength(15)
+  @IsOptional()
   referenceNo: string;
 
   @IsNumberString()
   @MaxLength(6)
+  @IsOptional()
   journalNum: string;
 
   @Length(1)
   @IsEnum(PaymentType)
+  @IsOptional()
   paymentType: PaymentType;
 
   @IsEnum(FlagAdvise)
   @Length(1)
+  @IsOptional()
   flagAdvise: FlagAdvise;
 
-  @IsNumberString()
+  @IsEnum(PaymentFlagStatus)
   @Length(2)
+  @IsOptional()
   paymentFlagStatus: PaymentFlagStatus;
 
   @IsArray()
+  @IsOptional()
   billDetails: PaymentResponseBillDetail[];
 }

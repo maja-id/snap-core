@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -20,7 +21,7 @@ export class InquiryStatusRequest {
 
   @IsNumberString()
   @IsNotEmpty()
-  @Length(28)
+  @MaxLength(28)
   virtualAccountNo: string;
 
   @IsString()
@@ -30,8 +31,10 @@ export class InquiryStatusRequest {
 
   @IsString()
   @MaxLength(128)
+  @IsOptional()
   paymentRequestId: string;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }

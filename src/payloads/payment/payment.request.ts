@@ -8,6 +8,7 @@ import {
   IsNotEmptyObject,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   Length,
@@ -33,20 +34,24 @@ export class PaymentRequest {
 
   @IsNumberString()
   @IsNotEmpty()
-  @Length(28)
+  @MaxLength(28)
   virtualAccountNo: string;
 
   @IsString()
+  @IsOptional()
   virtualAccountName: string;
 
   @IsEmail()
+  @IsOptional()
   virtualAccountEmail: string;
 
   @IsPhoneNumber()
+  @IsOptional()
   virtualAccountPhone: string;
 
   @IsString()
   @MaxLength(64)
+  @IsOptional()
   trxId: string;
 
   @IsNotEmpty()
@@ -56,62 +61,79 @@ export class PaymentRequest {
 
   @IsString()
   @Length(4)
+  @IsOptional()
   channelCode: string;
 
   @IsString()
+  @IsOptional()
   hashedSourceAccountNo: string;
 
   @IsString()
   @Length(3)
+  @IsOptional()
   sourceBankCode: string;
 
   @IsNotEmptyObject()
+  @IsOptional()
   paidAmount: Amount;
 
   @IsObject()
+  @IsOptional()
   cumulativePaymentAmount: Amount;
 
   @IsHexadecimal()
   @MaxLength(6)
+  @IsOptional()
   paidBills: string;
 
   @IsObject()
+  @IsNotEmpty()
   totalAmount: Amount;
 
   @IsISO8601()
+  @IsOptional()
   trxDateTime: string;
 
   @IsString()
   @MaxLength(64)
+  @IsNotEmpty()
   referenceNo: string;
 
   @IsNumberString()
   @MaxLength(6)
+  @IsOptional()
   journalNum: string;
 
   @IsEnum(PaymentType)
   @Length(1)
+  @IsOptional()
   paymentType: PaymentType;
 
   @IsEnum(FlagAdvise)
   @Length(1)
+  @IsOptional()
   flagAdvise: FlagAdvise;
 
   @IsString()
   @MaxLength(5)
+  @IsOptional()
   subCompany: string;
 
   @IsArray()
+  @IsOptional()
   billDetails: PaymentRequestBillDetail[];
 
   @IsString()
+  @IsOptional()
   @MaxLength(15)
   billReferenceNo: string;
 
   @IsArray()
   @Max(25)
+  @IsOptional()
   freeTexts: Description[];
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, unknown>;
 }

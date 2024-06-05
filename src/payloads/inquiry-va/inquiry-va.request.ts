@@ -18,7 +18,7 @@ export class InquiryVaRequest {
   customerNo: string;
 
   @IsNumberString()
-  @Length(28)
+  @MaxLength(28)
   @IsNotEmpty()
   virtualAccountNo: string;
 

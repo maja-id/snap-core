@@ -2,6 +2,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsNumberString,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -20,7 +21,7 @@ export class UpdateStatusVaRequest {
   customerNo: string;
 
   @IsNumberString()
-  @Length(28)
+  @MaxLength(28)
   @IsNotEmpty()
   virtualAccountNo: string;
 
@@ -31,5 +32,6 @@ export class UpdateStatusVaRequest {
 
   @IsEnum(PaidStatus)
   @Length(1)
+  @IsOptional()
   paidStatus: PaidStatus;
 }

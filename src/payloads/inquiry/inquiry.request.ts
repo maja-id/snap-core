@@ -4,6 +4,7 @@ import {
   IsNotEmptyObject,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -23,11 +24,12 @@ export class InquiryRequest {
 
   @IsString()
   @IsNumberString()
-  @Length(28)
+  @MaxLength(28)
   virtualAccountNo: string;
 
   @IsISO8601()
   @MaxLength(25)
+  @IsOptional()
   trxDateInit: string;
 
   @IsNumberString()
@@ -36,6 +38,7 @@ export class InquiryRequest {
 
   @IsString()
   @Length(2)
+  @IsOptional()
   language: string;
 
   @IsNotEmptyObject()
@@ -43,14 +46,17 @@ export class InquiryRequest {
 
   @IsString()
   @Length(32)
+  @IsOptional()
   hashedSourceAccountNo: string;
 
   @IsString()
   @Length(3)
+  @IsOptional()
   sourceBankCode: string;
 
   @IsString()
   @MaxLength(64)
+  @IsOptional()
   passApp: string;
 
   @IsString()
@@ -59,5 +65,6 @@ export class InquiryRequest {
   inquiryRequestId: string;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, unknown>;
 }

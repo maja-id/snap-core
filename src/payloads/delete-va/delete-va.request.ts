@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -19,7 +20,7 @@ export class DeleteVaRequest {
   customerNo: string;
 
   @IsNumberString()
-  @Length(28)
+  @MaxLength(28)
   @IsNotEmpty()
   virtualAccountNo: string;
 
@@ -29,5 +30,6 @@ export class DeleteVaRequest {
   trxId: string;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }

@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   Length,
@@ -25,7 +26,7 @@ export class VirtualAccountData {
 
   @IsNumberString()
   @IsNotEmpty()
-  @Length(28)
+  @MaxLength(28)
   virtualAccountNo: string;
 
   @IsString()
@@ -33,14 +34,18 @@ export class VirtualAccountData {
   virtualAccountName: string;
 
   @IsEmail()
+  @IsOptional()
   virtualAccountEmail: string;
 
   @IsPhoneNumber()
+  @IsOptional()
   virtualAccountPhone: string;
 
   @IsObject()
+  @IsOptional()
   totalAmount: Amount;
 
   @IsArray()
+  @IsOptional()
   freeTexts: Description[];
 }

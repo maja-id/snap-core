@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -29,9 +30,11 @@ export class InquiryVirtualAccountData extends VirtualAccountData {
 
   @MaxLength(5)
   @IsString()
+  @IsOptional()
   subCompany: string;
 
   @IsArray()
+  @IsOptional()
   billDetails: InquiryBillDetail[];
 
   @IsEnum(VirtualAccountTrxType)
@@ -39,8 +42,10 @@ export class InquiryVirtualAccountData extends VirtualAccountData {
   virtualAccountTrxType: VirtualAccountTrxType;
 
   @IsObject()
+  @IsOptional()
   feeAmount: Amount;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }

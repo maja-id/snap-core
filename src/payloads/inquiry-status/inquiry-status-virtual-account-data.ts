@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -30,35 +31,45 @@ export class InquiryStatusVirtualAccountData extends VirtualAccountData {
 
   @IsString()
   @MaxLength(128)
+  @IsOptional()
   paymentRequestId: string;
 
   @IsObject()
+  @IsOptional()
   paidAmount: Amount;
 
   @IsHexadecimal()
   @MaxLength(6)
+  @IsOptional()
   paidBills: string;
 
   @IsISO8601()
+  @IsOptional()
   trxDateTime: string;
 
   @IsISO8601()
+  @IsOptional()
   transactionDate: string;
 
   @IsString()
   @MaxLength(15)
+  @IsOptional()
   referenceNo: string;
 
   @IsEnum(["1", "2"])
+  @IsOptional()
   paymentType: PaymentType;
 
   @IsEnum(["Y", "N"])
+  @IsOptional()
   flagAdvise: FlagAdvise;
 
   @IsNumberString()
   @Length(2)
+  @IsOptional()
   paymentFlagStatus: PaymentFlagStatus;
 
   @IsArray()
+  @IsOptional()
   billDetails: InquiryStatusBillDetail[];
 }

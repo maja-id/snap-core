@@ -4,6 +4,7 @@ import {
   IsISO8601,
   IsNotEmpty,
   IsObject,
+  IsOptional,
   IsString,
   MaxLength,
 } from "class-validator";
@@ -19,6 +20,7 @@ export class CreateVaVirtualAccountData extends VirtualAccountData {
   trxId: string;
 
   @IsArray()
+  @IsOptional()
   billDetails: BillDetail[];
 
   @IsEnum(VirtualAccountTrxType)
@@ -26,11 +28,14 @@ export class CreateVaVirtualAccountData extends VirtualAccountData {
   virtualAccountTrxType: VirtualAccountTrxType;
 
   @IsObject()
+  @IsOptional()
   feeAmount: Amount;
 
   @IsISO8601()
+  @IsOptional()
   expiredDate: string;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }

@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   Length,
@@ -28,7 +29,7 @@ export class CreateVaRequest {
   customerNo: string;
 
   @IsNumberString()
-  @Length(28)
+  @MaxLength(28)
   @IsNotEmpty()
   virtualAccountNo: string;
 
@@ -37,9 +38,11 @@ export class CreateVaRequest {
   virtualAccountName: string;
 
   @IsEmail()
+  @IsOptional()
   virtualAccountEmail: string;
 
   @IsPhoneNumber()
+  @IsOptional()
   virtualAccountPhone: string;
 
   @IsString()
@@ -48,21 +51,28 @@ export class CreateVaRequest {
   trxId: string;
 
   @IsObject()
+  @IsOptional()
   totalAmount: Amount;
 
   @IsArray()
   billDetails: BillDetail[];
 
+  @IsOptional()
+  @IsArray()
   freeTexts: Description[];
 
   @IsEnum(VirtualAccountTrxType)
+  @IsOptional()
   virtualAccountTrxType: VirtualAccountTrxType;
 
+  @IsOptional()
   feeAmount: Amount;
 
   @IsISO8601()
+  @IsOptional()
   expiredDate: string;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }
