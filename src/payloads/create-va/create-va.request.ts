@@ -18,7 +18,7 @@ import { Description } from "../description";
 import { VirtualAccountTrxType } from "../../enumerations/virtual-account-trx-type.enum";
 
 export class CreateVaRequest {
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
   @Length(8)
   partnerServiceId: string;

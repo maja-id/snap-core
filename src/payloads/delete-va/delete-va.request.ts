@@ -9,7 +9,7 @@ import {
 } from "class-validator";
 
 export class DeleteVaRequest {
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
   @Length(8)
   partnerServiceId: string;

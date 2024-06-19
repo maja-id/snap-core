@@ -10,7 +10,7 @@ import {
 import { PaidStatus } from "../../enumerations/paid-status.enum";
 
 export class UpdateStatusVaRequest {
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
   @Length(8)
   partnerServiceId: string;

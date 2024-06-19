@@ -22,7 +22,7 @@ import { FlagAdvise } from "../../enumerations/flag-advise.enum";
 import { PaymentRequestBillDetail } from "./payment-request-bill-detail";
 
 export class PaymentRequest {
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
   @Length(8)
   partnerServiceId: string;

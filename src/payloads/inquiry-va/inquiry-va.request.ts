@@ -7,7 +7,7 @@ import {
 } from "class-validator";
 
 export class InquiryVaRequest {
-  @IsNumberString()
+  @IsString()
   @IsNotEmpty()
   @Length(8)
   partnerServiceId: string;
