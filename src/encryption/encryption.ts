@@ -1,6 +1,6 @@
 import { createHash, createHmac, sign } from "crypto";
 import { SignatureOptions } from "../payloads/signature.options";
-import { validateOrReject } from "class-validator";
+import { validateOrReject, validateSync } from "class-validator";
 import { TokenHeaders } from "../payloads";
 
 /**
@@ -13,9 +13,9 @@ export class SnapEncryption {
   publicKey: string;
 
   constructor(options: {
-    clientId?: string;
+    clientId: string;
     clientSecret: string;
-    privateKey?: string;
+    privateKey: string;
     publicKey?: string;
   }) {
     if (!options.clientId || !options.clientSecret) {
@@ -30,13 +30,11 @@ export class SnapEncryption {
   /**
    * Generate Token Signature
    */
-  async generateTokenSignature(headers: TokenHeaders) {
+  generateTokenSignature(headers: TokenHeaders) {
     const stringToSign = headers["x-client-key"] + "|" + headers["x-timestamp"];
-    return sign(
-      "sha256",
-      Buffer.from(stringToSign),
-      this.clientSecret,
-    ).toString("hex");
+    return sign("sha256", Buffer.from(stringToSign), this.privateKey).toString(
+      "hex",
+    );
   }
 
   /**
@@ -46,8 +44,12 @@ export class SnapEncryption {
    * - Symmetric Signature with AccessToken
    * - Asymmetric Signature without AccessToken
    **/
-  async generateSignature(data: SignatureOptions) {
-    await validateOrReject(data);
+  generateSignature(data: SignatureOptions) {
+    const validate = validateSync(data);
+    if (validate.length > 0) {
+      console.error("Validation error", JSON.stringify(validate));
+      throw new Error("4010101: Validation error: " + JSON.stringify(validate));
+    }
 
     if (data.type === "symetric") {
       return this.generateSymetricSignature(data);
