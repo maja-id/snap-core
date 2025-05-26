@@ -30,10 +30,10 @@ export class SnapEncryption {
   /**
    * Generate Token Signature
    */
-  generateTokenSignature(headers: TokenHeaders) {
+  generateTokenSignature(headers: TokenHeaders, encoding: "hex" | "base64") {
     const stringToSign = headers["x-client-key"] + "|" + headers["x-timestamp"];
     return sign("sha256", Buffer.from(stringToSign), this.privateKey).toString(
-      "hex",
+      encoding || "hex",
     );
   }
 
