@@ -30,7 +30,7 @@ export class SnapEncryption {
   /**
    * Generate Token Signature
    */
-  generateTokenSignature(headers: TokenHeaders, encoding: "hex" | "base64") {
+  generateTokenSignature(headers: TokenHeaders, encoding: "hex" | "base64" = "hex") {
     const stringToSign = headers["x-client-key"] + "|" + headers["x-timestamp"];
     return sign("sha256", Buffer.from(stringToSign), this.privateKey).toString(
       encoding || "hex",
@@ -44,7 +44,7 @@ export class SnapEncryption {
    * - Symmetric Signature with AccessToken
    * - Asymmetric Signature without AccessToken
    **/
-  generateSignature(data: SignatureOptions) {
+  generateSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex") {
     const validate = validateSync(data);
     if (validate.length > 0) {
       console.error("Validation error", JSON.stringify(validate));
@@ -52,11 +52,11 @@ export class SnapEncryption {
     }
 
     if (data.type === "symetric") {
-      return this.generateSymetricSignature(data);
+      return this.generateSymetricSignature(data, encoding);
     }
 
     if (data.type === "asymetric") {
-      return this.generateAsymetricSignature(data);
+      return this.generateAsymetricSignature(data, encoding);
     }
 
     throw Error("Invalid signature type");
@@ -73,7 +73,7 @@ export class SnapEncryption {
    *   + Lowercase(HexEncode(SHA256(minify(RequestBody)))) + ":“
    *   + TimeStamp
    */
-  public generateAsymetricSignature(data: SignatureOptions) {
+  public generateAsymetricSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex"): string {
     try {
       console.debug("Generating asymetric signature", data);
       if (data.type !== "asymetric") {
@@ -96,7 +96,7 @@ export class SnapEncryption {
         Buffer.from(stringToSign),
         this.privateKey,
       );
-      const sha256signHex = sha256sign.toString("hex");
+      const sha256signHex = sha256sign.toString(encoding);
       console.debug("sha256sign", sha256signHex);
       return sha256signHex;
     } catch (error) {
@@ -117,7 +117,7 @@ export class SnapEncryption {
    *    + Lowercase(HexEncode(SHA256(minify(RequestBody))))+ ":“
    *    + TimeStamp
    */
-  public generateSymetricSignature(data: SignatureOptions): string {
+  public generateSymetricSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex"): string {
     try {
       console.debug("Generate symetric signature", data);
       if (data.type !== "symetric") {
@@ -140,7 +140,7 @@ export class SnapEncryption {
 
       const hmac = createHmac("sha512", this.clientSecret);
       hmac.update(stringToSign);
-      const hmacEncryptedSign = hmac.digest("hex");
+      const hmacEncryptedSign = hmac.digest(encoding);
       console.debug("Signature", hmacEncryptedSign);
 
       return hmacEncryptedSign;
