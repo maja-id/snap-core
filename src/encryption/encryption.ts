@@ -82,7 +82,7 @@ export class SnapEncryption {
       const httpMethod = data.httpMethod
         ? data.httpMethod.toUpperCase()
         : "POST";
-      const stringifyRequestBody = JSON.stringify(data.requestBody);
+      const stringifyRequestBody = JSON.stringify(JSON.parse(data.requestBody));
       const hashedRequestBody = createHash("sha256")
         .update(stringifyRequestBody)
         .digest("hex");
@@ -129,7 +129,7 @@ export class SnapEncryption {
       const httpMethod = data.httpMethod
         ? data.httpMethod.toUpperCase()
         : "POST";
-      const stringifyRequestBody = JSON.stringify(data.requestBody);
+      const stringifyRequestBody = JSON.stringify(JSON.parse(data.requestBody));
       const hashedRequestBody = createHash("sha256")
         .update(stringifyRequestBody)
         .digest("hex");
