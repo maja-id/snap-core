@@ -1,12 +1,12 @@
 import {
   IsISO8601,
   IsNotEmpty,
-  IsNotEmptyObject,
   IsNumberString,
   IsObject,
   IsOptional,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from "class-validator";
 import { Amount } from "../amount";
@@ -23,7 +23,7 @@ export class InquiryRequest {
   customerNo: string;
 
   @IsString()
-  @IsNumberString()
+  @Matches(/^[\d ]+$/)
   @MaxLength(28)
   virtualAccountNo: string;
 
@@ -41,7 +41,8 @@ export class InquiryRequest {
   @IsOptional()
   language: string;
 
-  @IsNotEmptyObject()
+  @IsOptional()
+  @IsObject()
   amount: Amount;
 
   @IsString()
