@@ -27,7 +27,7 @@ export class PaymentRequest {
   @Length(8)
   partnerServiceId: string;
 
-  @Length(20)
+  @MaxLength(20)
   @IsNotEmpty()
   @IsString()
   customerNo: string;
@@ -87,7 +87,7 @@ export class PaymentRequest {
   paidBills: string;
 
   @IsObject()
-  @IsNotEmpty()
+  @IsOptional()
   totalAmount: Amount;
 
   @IsISO8601()
@@ -96,7 +96,7 @@ export class PaymentRequest {
 
   @IsString()
   @MaxLength(64)
-  @IsNotEmpty()
+  @IsOptional()
   referenceNo: string;
 
   @IsNumberString()
