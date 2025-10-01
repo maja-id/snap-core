@@ -1,10 +1,10 @@
 import {
   IsNotEmpty,
-  IsNumberString,
   IsObject,
   IsOptional,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from "class-validator";
 
@@ -19,8 +19,8 @@ export class DeleteVaRequest {
   @MaxLength(20)
   customerNo: string;
 
-  @IsNumberString()
   @MaxLength(28)
+  @Matches(/^[\d ]+$/)
   @IsNotEmpty()
   virtualAccountNo: string;
 

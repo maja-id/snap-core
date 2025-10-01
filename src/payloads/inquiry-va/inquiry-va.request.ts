@@ -1,8 +1,8 @@
 import {
   IsNotEmpty,
-  IsNumberString,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from "class-validator";
 
@@ -17,8 +17,8 @@ export class InquiryVaRequest {
   @MaxLength(20)
   customerNo: string;
 
-  @IsNumberString()
   @MaxLength(28)
+  @Matches(/^[\d ]+$/)
   @IsNotEmpty()
   virtualAccountNo: string;
 

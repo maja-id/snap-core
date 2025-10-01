@@ -1,10 +1,10 @@
 import {
   IsEnum,
   IsNotEmpty,
-  IsNumberString,
   IsOptional,
   IsString,
   Length,
+  Matches,
   MaxLength,
 } from "class-validator";
 import { PaidStatus } from "../../enumerations/paid-status.enum";
@@ -20,8 +20,8 @@ export class UpdateStatusVaRequest {
   @MaxLength(20)
   customerNo: string;
 
-  @IsNumberString()
   @MaxLength(28)
+  @Matches(/^[\d ]+$/)
   @IsNotEmpty()
   virtualAccountNo: string;
 
