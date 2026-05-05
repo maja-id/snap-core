@@ -1,4 +1,4 @@
-import { IsEnum, IsISO8601, IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsISO8601, IsNotEmpty, IsString, IsOptional } from "class-validator";
 export class SignatureOptions {
   @IsString()
   @IsEnum(["symetric", "asymetric"])
@@ -10,6 +10,7 @@ export class SignatureOptions {
   @IsString()
   endpointUrl: string;
   @IsString()
+  @IsOptional()
   accessToken?: string;
   @IsISO8601()
   timestamp: string;
