@@ -2,6 +2,7 @@ import { createHash, createHmac, sign } from "crypto";
 import { SignatureOptions } from "../payloads/signature.options";
 import { validateOrReject, validateSync } from "class-validator";
 import { TokenHeaders } from "../payloads";
+import { plainToInstance } from "class-transformer";
 
 /**
  * SnapEncryption helper class
@@ -30,7 +31,10 @@ export class SnapEncryption {
   /**
    * Generate Token Signature
    */
-  generateTokenSignature(headers: TokenHeaders, encoding: "hex" | "base64" = "hex") {
+  generateTokenSignature(
+    headers: TokenHeaders,
+    encoding: "hex" | "base64" = "hex",
+  ) {
     const stringToSign = headers["x-client-key"] + "|" + headers["x-timestamp"];
     return sign("sha256", Buffer.from(stringToSign), this.privateKey).toString(
       encoding || "hex",
@@ -44,8 +48,12 @@ export class SnapEncryption {
    * - Symmetric Signature with AccessToken
    * - Asymmetric Signature without AccessToken
    **/
-  generateSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex") {
-    const validate = validateSync(data);
+  generateSignature(
+    data: SignatureOptions,
+    encoding: "hex" | "base64" = "hex",
+  ) {
+    const dataToValidate = plainToInstance(SignatureOptions, data);
+    const validate = validateSync(dataToValidate);
     if (validate.length > 0) {
       console.error("Validation error", JSON.stringify(validate));
       throw new Error("4010101: Validation error: " + JSON.stringify(validate));
@@ -73,7 +81,10 @@ export class SnapEncryption {
    *   + Lowercase(HexEncode(SHA256(minify(RequestBody)))) + ":“
    *   + TimeStamp
    */
-  public generateAsymetricSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex"): string {
+  public generateAsymetricSignature(
+    data: SignatureOptions,
+    encoding: "hex" | "base64" = "hex",
+  ): string {
     try {
       console.debug("Generating asymetric signature", data);
       if (data.type !== "asymetric") {
@@ -117,7 +128,10 @@ export class SnapEncryption {
    *    + Lowercase(HexEncode(SHA256(minify(RequestBody))))+ ":“
    *    + TimeStamp
    */
-  public generateSymetricSignature(data: SignatureOptions, encoding: "hex" | "base64" = "hex"): string {
+  public generateSymetricSignature(
+    data: SignatureOptions,
+    encoding: "hex" | "base64" = "hex",
+  ): string {
     try {
       console.debug("Generate symetric signature", data);
       if (data.type !== "symetric") {
