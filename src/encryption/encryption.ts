@@ -1,6 +1,6 @@
 import { createHash, createHmac, sign } from "crypto";
 import { SignatureOptions } from "../payloads/signature.options";
-import { validateOrReject, validateSync } from "class-validator";
+import { validateSync } from "class-validator";
 import { TokenHeaders } from "../payloads";
 import { plainToInstance } from "class-transformer";
 
@@ -55,7 +55,9 @@ export class SnapEncryption {
     const dataToValidate = plainToInstance(SignatureOptions, data);
     const validate = validateSync(dataToValidate);
     if (validate.length > 0) {
-      console.error("Validation error", JSON.stringify(validate));
+      console.error(
+        `[SNAP-CORE] ${new Date().toISOString()} - ERROR - Validation error: ${JSON.stringify(validate)}`,
+      );
       throw new Error("4010101: Validation error: " + JSON.stringify(validate));
     }
 
@@ -86,7 +88,10 @@ export class SnapEncryption {
     encoding: "hex" | "base64" = "hex",
   ): string {
     try {
-      console.debug("Generating asymetric signature", data);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - Generating asymetric signature`,
+        JSON.stringify(data),
+      );
       if (data.type !== "asymetric") {
         throw new Error("type must be asymetric");
       }
@@ -100,7 +105,10 @@ export class SnapEncryption {
 
       const lowerCaseHashedRequestBody = hashedRequestBody.toLowerCase();
       const stringToSign = `${httpMethod}:${data.endpointUrl}:${lowerCaseHashedRequestBody}:${data.timestamp}`;
-      console.debug("stringToSign", stringToSign);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - String to Sign`,
+        stringToSign,
+      );
 
       const sha256sign = sign(
         "sha256",
@@ -108,10 +116,17 @@ export class SnapEncryption {
         this.privateKey,
       );
       const sha256signHex = sha256sign.toString(encoding);
-      console.debug("sha256sign", sha256signHex);
+      //console.debug("sha256sign", sha256signHex);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - SHA256 Sign`,
+        sha256signHex,
+      );
       return sha256signHex;
     } catch (error) {
-      console.error("error encrypting data", error);
+      console.error(
+        `[SNAP-CORE] ${new Date().toISOString()} - ERROR -`,
+        error?.message || error,
+      );
       throw error;
     }
   }
@@ -133,7 +148,14 @@ export class SnapEncryption {
     encoding: "hex" | "base64" = "hex",
   ): string {
     try {
-      console.debug("Generate symetric signature", data);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - Generating symetric signature`,
+        JSON.stringify(data),
+      );
+      console.debug(
+        `SNAP-CORE] ${new Date().toISOString()} - DEBUG - Encoding`,
+        encoding,
+      );
       if (data.type !== "symetric") {
         throw new Error("type must be symetric");
       }
@@ -150,12 +172,18 @@ export class SnapEncryption {
 
       const lowerCaseHashedRequestBody = hashedRequestBody.toLowerCase();
       const stringToSign = `${httpMethod}:${data.endpointUrl}:${data.accessToken}:${lowerCaseHashedRequestBody}:${data.timestamp}`;
-      console.debug("stringToSign", stringToSign);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - String to Sign`,
+        stringToSign,
+      );
 
       const hmac = createHmac("sha512", this.clientSecret);
       hmac.update(stringToSign);
       const hmacEncryptedSign = hmac.digest(encoding);
-      console.debug("Signature", hmacEncryptedSign);
+      console.debug(
+        `[SNAP-CORE] ${new Date().toISOString()} - DEBUG - Signature`,
+        hmacEncryptedSign,
+      );
 
       return hmacEncryptedSign;
     } catch (error: any) {
