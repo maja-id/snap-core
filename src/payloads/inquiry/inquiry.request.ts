@@ -1,6 +1,7 @@
 import {
   IsISO8601,
   IsNotEmpty,
+  IsNumber,
   IsNumberString,
   IsObject,
   IsOptional,
@@ -32,9 +33,9 @@ export class InquiryRequest {
   @IsOptional()
   trxDateInit: string;
 
-  @IsNumberString()
+  @IsNumber()
   @Length(4)
-  channelCode: string;
+  channelCode: number
 
   @IsString()
   @Length(2)

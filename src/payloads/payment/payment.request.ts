@@ -6,6 +6,7 @@ import {
   IsISO8601,
   IsNotEmpty,
   IsNotEmptyObject,
+  IsNumber,
   IsNumberString,
   IsObject,
   IsOptional,
@@ -59,10 +60,10 @@ export class PaymentRequest {
   @MaxLength(128)
   paymentRequestId: string;
 
-  @IsString()
+  @IsNumber()
   @Length(4)
   @IsOptional()
-  channelCode: string;
+  channelCode: number;
 
   @IsString()
   @IsOptional()
