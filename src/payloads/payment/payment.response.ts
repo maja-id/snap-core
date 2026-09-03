@@ -1,6 +1,7 @@
 import {
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -20,5 +21,6 @@ export class PaymentResponse {
   virtualAccountData: paymentVirtualAccountData;
 
   @IsObject()
+  @IsOptional()
   additionalInfo: Record<string, any>;
 }

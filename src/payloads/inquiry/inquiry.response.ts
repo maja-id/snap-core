@@ -2,6 +2,7 @@ import {
   IsNotEmpty,
   IsNumberString,
   IsObject,
+  IsOptional,
   IsString,
   Length,
   MaxLength,
@@ -21,4 +22,8 @@ export class InquiryResponse {
 
   @IsObject()
   virtualAccountData: InquiryVirtualAccountData;
+
+  @IsObject()
+  @IsOptional()
+  additionalInfo: Record<string, any>;
 }

@@ -37,7 +37,4 @@ export class InquiryVaVirtualAccountData extends VirtualAccountData {
   @IsOptional()
   paymentDate: string;
 
-  @IsOptional()
-  @IsObject()
-  additionalInfo: Record<string, any>;
 }
