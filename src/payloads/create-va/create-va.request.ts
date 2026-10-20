@@ -4,9 +4,9 @@ import {
   IsEnum,
   IsISO8601,
   IsNotEmpty,
+  IsNumberString,
   IsObject,
   IsOptional,
-  IsPhoneNumber,
   IsString,
   Length,
   Matches,
@@ -41,7 +41,7 @@ export class CreateVaRequest {
   @IsOptional()
   virtualAccountEmail: string;
 
-  @IsPhoneNumber()
+  @IsNumberString()
   @IsOptional()
   virtualAccountPhone: string;
 
